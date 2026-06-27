@@ -2,7 +2,7 @@
 //  ExportView.swift
 //  Photogrammetry
 //
-//  Created by Unbinilium on 11/23/22.
+//  Created by ekarad1um on 11/23/22.
 //
 
 import SwiftUI
@@ -14,7 +14,9 @@ struct ExportView: View {
     @StateObject private var arContainerViewDelegate: ARContainerViewDelegate = ARContainerViewDelegate(frame: .zero)
     @State private var arContainerViewLoaded: Bool = false
     @State private var arContainerViewInfo: String = String()
-    
+    @State private var exportAlert: Bool = false
+    @State private var exportAlertInfo: String = String()
+
     var body: some View {
         VStack (spacing: 15) {
             ZStack {
@@ -44,20 +46,30 @@ struct ExportView: View {
                 arContainerViewDelegate.modelEntitySpin = false
                 photogrammetryDelegate.removeOutputModel()
             }
-            
+
             HStack {
                 Button(LocalizedStringKey("export.button.process.again")) { applicationViewState = .onInputView }
                     .keyboardShortcut("r", modifiers: .command)
-                
+
                 Spacer()
-                
-                Button(LocalizedStringKey("export.button.export.usdzmodel")) { photogrammetryDelegate.openExportModelPanel { _ in } }
-                    .keyboardShortcut("e", modifiers: .command)
+
+                Button(LocalizedStringKey("export.button.export.usdzmodel")) {
+                    photogrammetryDelegate.openExportModelPanel { result in
+                        if case let .failure(error) = result {
+                            exportAlertInfo = error.localizedDescription
+                            exportAlert = true
+                        }
+                    }
+                }
+                .keyboardShortcut("e", modifiers: .command)
             }
             .frame(width: 320)
             .fixedSize()
         }
         .padding(.all, 20)
+        .alert(exportAlertInfo, isPresented: $exportAlert) {
+            Button(LocalizedStringKey("input.button.ok"), role: .cancel) { exportAlertInfo.removeAll() }
+        }
     }
 }
 

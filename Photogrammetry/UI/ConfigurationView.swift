@@ -2,7 +2,7 @@
 //  ConfigurationView.swift
 //  Photogrammetry
 //
-//  Created by Unbinilium on 11/22/22.
+//  Created by ekarad1um on 11/22/22.
 //
 
 import SwiftUI
@@ -11,7 +11,7 @@ import RealityKit
 struct ConfigurationView: View {
     @Binding var applicationViewState: ApplicationViewState
     @ObservedObject var photogrammetryDelegate: PhotogrammetryDelegate
-    
+
     var body: some View {
         VStack (alignment: .center, spacing: 15) {
             VStack (alignment: .leading, spacing: 5) {
@@ -32,7 +32,7 @@ struct ConfigurationView: View {
             .fixedSize()
             .background(Color.gray.opacity(0.1))
             .cornerRadius(8)
-            
+
             VStack (alignment: .leading, spacing: 5) {
                 Spacer()
                 HStack {
@@ -46,7 +46,7 @@ struct ConfigurationView: View {
                 Text(LocalizedStringKey("configuration.object.masking.describe"))
                     .font(.footnote)
                     .padding([.leading, .trailing], 15)
-                
+
                 Spacer()
                 Picker(LocalizedStringKey("configuration.feature.sensitivity"), selection: $photogrammetryDelegate.sessionConfiguration.featureSensitivity) {
                     ForEach(PhotogrammetrySession.Configuration.FeatureSensitivity.allCases, id: \.self) {
@@ -57,7 +57,7 @@ struct ConfigurationView: View {
                 Text(LocalizedStringKey("configuration.feature.sensitivity.describe"))
                     .font(.footnote)
                     .padding([.leading, .trailing], 15)
-                
+
                 Spacer()
                 Picker(LocalizedStringKey("configuration.sample.ordering"), selection: $photogrammetryDelegate.sessionConfiguration.sampleOrdering) {
                     ForEach(PhotogrammetrySession.Configuration.SampleOrdering.allCases, id: \.self) {
@@ -75,13 +75,13 @@ struct ConfigurationView: View {
             .fixedSize()
             .background(Color.gray.opacity(0.1))
             .cornerRadius(8)
-            
+
             HStack {
                 Button(LocalizedStringKey("configuration.back")) { applicationViewState = ApplicationViewState.onInputView }
                     .keyboardShortcut(.leftArrow, modifiers: .command)
-                
+
                 Spacer()
-                
+
                 Button(LocalizedStringKey("configuration.generate.3dmodel")) { applicationViewState = ApplicationViewState.onProcessingView }
                     .keyboardShortcut("g", modifiers: .command)
             }

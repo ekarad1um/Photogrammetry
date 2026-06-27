@@ -2,18 +2,20 @@
 //  URL.swift
 //  Photogrammetry
 //
-//  Created by Unbinilium on 11/22/22.
+//  Created by ekarad1um on 11/22/22.
 //
 
 import Foundation
-import AppKit
+import os
+
+private let logger = Logger(subsystem: "com.unbinilium.photogrammetry", category: "URL")
 
 extension URL {
     var isDirectory: Bool? {
         do {
-            return try resourceValues(forKeys: [URLResourceKey.isDirectoryKey]).isDirectory
-        } catch let error {
-            print(error.localizedDescription)
+            return try resourceValues(forKeys: [.isDirectoryKey]).isDirectory
+        } catch {
+            logger.error("\(error.localizedDescription)")
             return nil
         }
     }

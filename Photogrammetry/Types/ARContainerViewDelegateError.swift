@@ -2,7 +2,7 @@
 //  ARContainerViewDelegateError.swift
 //  Photogrammetry
 //
-//  Created by Unbinilium on 11/24/22.
+//  Created by ekarad1um on 11/24/22.
 //
 
 import Foundation
@@ -11,10 +11,10 @@ struct ARContainerViewDelegateError: Error {
     enum ErrorType {
         case failedLoadingEntity
     }
-    
+
     var error: ErrorType
     var comment: String
-    
+
     init(error: ErrorType, comment: String = String()) {
         self.error = error
         self.comment = comment

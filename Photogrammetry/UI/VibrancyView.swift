@@ -2,7 +2,7 @@
 //  VibrancyView.swift
 //  Photogrammetry
 //
-//  Created by Unbinilium on 11/25/22.
+//  Created by ekarad1um on 11/25/22.
 //
 
 import SwiftUI
@@ -15,6 +15,6 @@ struct VibrancyView: NSViewRepresentable {
         visualEffectView.state = .active
         return visualEffectView
     }
-    
+
     func updateNSView(_ nsView: NSView, context: Context) { }
 }

@@ -2,28 +2,28 @@
 //  ContentView.swift
 //  Photogrammetry
 //
-//  Created by Unbinilium on 11/19/22.
+//  Created by ekarad1um on 11/19/22.
 //
 
 import SwiftUI
 import RealityKit
 
 struct ContentView: View {
-    @State var applicationViewState = ApplicationViewState.onInputView
+    @State private var applicationViewState = ApplicationViewState.onInputView
     @StateObject var photogrammetryDelegate = PhotogrammetryDelegate()
-    
+
     var body: some View {
         ZStack {
             switch applicationViewState {
             case .onInputView:
                 InputView(applicationViewState: $applicationViewState, photogrammetryDelegate: photogrammetryDelegate)
-                
+
             case .onConfigurationView:
                 ConfigurationView(applicationViewState: $applicationViewState, photogrammetryDelegate: photogrammetryDelegate)
-                
+
             case .onProcessingView:
                 ProcessingView(applicationViewState: $applicationViewState, photogrammetryDelegate: photogrammetryDelegate)
-                
+
             case .onExportView:
                 ExportView(applicationViewState: $applicationViewState, photogrammetryDelegate: photogrammetryDelegate)
             }

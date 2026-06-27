@@ -2,7 +2,7 @@
 //  InputView.swift
 //  Photogrammetry
 //
-//  Created by Unbinilium on 11/19/22.
+//  Created by ekarad1um on 11/19/22.
 //
 
 import SwiftUI
@@ -12,7 +12,7 @@ struct InputView: View {
     @ObservedObject var photogrammetryDelegate: PhotogrammetryDelegate
     @State private var openFolderAlert: Bool = false
     @State private var openFolderAlertInfo: String = String()
-    
+
     var body: some View {
         VStack() {
             VStack (spacing: 5) {
@@ -25,10 +25,10 @@ struct InputView: View {
             .onDrop(of: ["public.file-url"], delegate: OnDropDelegate(
                 applicationViewState: $applicationViewState,
                 photogrammetryDelegate: photogrammetryDelegate))
-            
+
             Text(LocalizedStringKey("input.text.or"))
                 .italic()
-            
+
             Button(LocalizedStringKey("input.button.open.imagefolder")) {
                 photogrammetryDelegate.openInputFolderPanel { (result) in
                     if case let .success(folderUrl) = result {

@@ -2,7 +2,7 @@
 //  ProcessingView.swift
 //  Photogrammetry
 //
-//  Created by Unbinilium on 11/23/22.
+//  Created by ekarad1um on 11/23/22.
 //
 
 import SwiftUI
@@ -13,7 +13,7 @@ struct ProcessingView: View {
     @State private var photogrammetryAlert: Bool = false
     @State private var photogrammetryAlertInfo: String = String()
     @State private var animation: Bool = false
-    
+
     var body: some View {
         VStack (spacing: 15) {
             Spacer()
@@ -42,17 +42,20 @@ struct ProcessingView: View {
             .frame(width: 320)
             .fixedSize()
             .padding([.trailing, .leading], 15)
-            
+
             ProgressView(value: photogrammetryDelegate.sessionProgress, total: 1.0)
                 .frame(width: 320)
                 .fixedSize()
                 .padding([.trailing, .leading], 15)
-            
+
             Text(photogrammetryDelegate.sessionInfo)
                 .lineLimit(2)
                 .frame(width: 320)
                 .fixedSize(horizontal: true, vertical: true)
                 .padding([.trailing, .leading], 15)
+
+            Button(LocalizedStringKey("processing.button.cancel.processing")) { cancelProcessing() }
+                .keyboardShortcut(.cancelAction)
             Spacer()
         }
         .onAppear {
@@ -68,11 +71,13 @@ struct ProcessingView: View {
         }
         .onDisappear { photogrammetryAlertInfo.removeAll() }
         .alert(photogrammetryAlertInfo, isPresented: $photogrammetryAlert) {
-            Button(LocalizedStringKey("processing.button.cancel.processing"), role: .cancel) {
-                photogrammetryDelegate.cancelGeneratingModel()
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { self.applicationViewState = .onConfigurationView }
-            }
+            Button(LocalizedStringKey("processing.button.cancel.processing"), role: .cancel) { cancelProcessing() }
         }
+    }
+
+    private func cancelProcessing() {
+        photogrammetryDelegate.cancelGeneratingModel()
+        applicationViewState = .onConfigurationView
     }
 }
 
